@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meld Privacy Policy</title>
+<meta name="description" content="Privacy policy for the Meld iOS app.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --ground: #FBF7F3;
+    --ground-raised: #FFFFFF;
+    --ink: #2B1D17;
+    --ink-soft: #5A483F;
+    --ink-faint: #8B7B71;
+    --rule: #E7DCD2;
+    --accent: #B8574D;
+    --accent-soft: #E0836B;
+    --card-shadow: 0 1px 2px rgba(43, 29, 23, 0.04), 0 8px 24px rgba(43, 29, 23, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #241611;
+      --ground-raised: #2E1D17;
+      --ink: #F2E9E2;
+      --ink-soft: #C9B7AC;
+      --ink-faint: #8F7A6E;
+      --rule: #3F2B22;
+      --accent: #E0836B;
+      --accent-soft: #EDAE96;
+      --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(34px, 5vw, 48px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+
+  .dek {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 0 0 8px;
+  }
+
+  .meta {
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin: 28px 0 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .headline-card {
+    margin: 44px 0 56px;
+    padding: 28px 28px;
+    background: var(--ground-raised);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    box-shadow: var(--card-shadow);
+    display: grid;
+    gap: 14px;
+  }
+
+  .headline-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .headline-row .mark {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    color: var(--accent);
+  }
+
+  .headline-row p {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .headline-row strong { font-weight: 600; }
+
+  section { margin: 0 0 44px; }
+
+  section h2 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 22px;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+
+  section p, section li {
+    font-size: 15.5px;
+    line-height: 1.68;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  section p { margin: 0 0 14px; }
+
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+
+  .table {
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 0 14px;
+    background: var(--ground-raised);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 16px;
+    padding: 14px 18px;
+  }
+
+  .row + .row { border-top: 1px solid var(--rule); }
+
+  .row .k {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 2px;
+  }
+
+  .row .v {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .row .v .sub {
+    display: block;
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    margin-top: 2px;
+  }
+
+  a { color: var(--accent); text-decoration-color: var(--accent-soft); }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 56px 0 40px;
+  }
+
+  footer {
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 520px) {
+    .row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Meld — Privacy Policy</p>
+  <h1>What happens between you two stays between you two.</h1>
+  <p class="dek">Meld is built so the app itself never has to be trusted with your answers — because it never sees them. This page explains exactly what that means in practice.</p>
+  <p class="meta">Effective September 9, 2026</p>
+
+  <div class="headline-card">
+    <div class="headline-row">
+      <svg class="mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 6v6c0 5.2 3.4 9.7 8 11 4.6-1.3 8-5.8 8-11V6l-8-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <p>Everything you and your partner do inside Meld — names, sessions, answers, "Our list" — is saved <strong>only on your own device</strong>, using Apple's on-device storage. It is never uploaded to us or to any server we run, because we don't run one.</p>
+    </div>
+    <div class="headline-row">
+      <svg class="mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p>We use one outside service, <strong>RevenueCat</strong>, and only to process subscription purchases through Apple's App Store. It never sees your names or your answers.</p>
+    </div>
+    <div class="headline-row">
+      <svg class="mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p>Meld has no ad tracking, no analytics SDK, and nothing that identifies you to a third party. There is no account and no login.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>What Meld stores, and where</h2>
+    <p>Meld stores the following, using Apple's SwiftData framework, entirely on your device:</p>
+    <ul>
+      <li>The two names you enter, so the app knows whose turn it is</li>
+      <li>Your session history — which decks you've opened and when</li>
+      <li>Your answers and reveals from each session</li>
+      <li>"Our list" — the things that became visible between you as a couple</li>
+    </ul>
+    <p>None of this data is synced to iCloud, sent to a server, or shared with anyone — including us. If you delete Meld, this data is deleted with it. Settings also gives you a direct way to clear "Our list" or delete everything Meld has stored, at any time.</p>
+  </section>
+
+  <section>
+    <h2>The one thing that does leave your device</h2>
+    <p>To sell subscriptions through Apple's App Store, Meld uses <strong>RevenueCat</strong> to process purchases and verify your entitlement to premium content. This is the only data that travels off your device, and it's limited to what a purchase requires:</p>
+    <div class="table">
+      <div class="row">
+        <div class="k">Shared with</div>
+        <div class="v">RevenueCat, Inc. — subscription infrastructure used by Meld<span class="sub">revenuecat.com/privacy</span></div>
+      </div>
+      <div class="row">
+        <div class="k">What's shared</div>
+        <div class="v">Purchase history and an anonymous device-linked purchaser ID<span class="sub">Never your names, answers, sessions, or "Our list"</span></div>
+      </div>
+      <div class="row">
+        <div class="k">Used for</div>
+        <div class="v">Confirming your purchase and unlocking premium content — nothing else</div>
+      </div>
+      <div class="row">
+        <div class="k">Tracking</div>
+        <div class="v">None. This data is not linked to your identity or used to track you across apps</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What we don't do</h2>
+    <ul>
+      <li>We don't run analytics, crash reporting, or ad-tracking SDKs of any kind</li>
+      <li>We don't collect your email, phone number, or any account credential — Meld has no account</li>
+      <li>We don't share, sell, or rent any data to advertisers or data brokers</li>
+      <li>We don't have access to your on-device data, even if you asked us to look — it never reaches us</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Children's privacy</h2>
+    <p>Meld is not directed at children and is not intended for use by anyone under 17.</p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>If Meld's data practices change, this page will change with them, and the "Effective" date at the top will update. Practices that would add server-side storage, accounts, or tracking are not currently planned.</p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>Questions about this policy or how Meld handles your information can be sent to <a href="mailto:luiza.garofalo@gmail.com">luiza.garofalo@gmail.com</a>.</p>
+  </section>
+
+  <hr />
+  <footer>Meld is developed by Luiza Garofalo. This policy covers the Meld iOS app only.</footer>
+</div>
+</body>
+</html>
