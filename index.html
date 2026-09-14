@@ -3,24 +3,498 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Meld</title>
+<title>Meld — For Sapphic Couples</title>
+<meta name="description" content="Meld is a private, one-phone ritual for sapphic couples. Answer privately, pass the phone, and see only what you both leaned into.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
-  html, body { margin: 0; height: 100%; background: #241611; color: #F2E9E2; }
+
+  :root {
+    --ground: #FBF7F3;
+    --ground-raised: #FFFFFF;
+    --ink: #2B1D17;
+    --ink-soft: #5A483F;
+    --ink-faint: #8B7B71;
+    --rule: #E7DCD2;
+    --accent: #B8574D;
+    --accent-soft: #E0836B;
+    --dark-ground: #241611;
+    --dark-ink: #F2E9E2;
+    --card-shadow: 0 1px 2px rgba(43, 29, 23, 0.04), 0 8px 24px rgba(43, 29, 23, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #241611;
+      --ground-raised: #2E1D17;
+      --ink: #F2E9E2;
+      --ink-soft: #C9B7AC;
+      --ink-faint: #8F7A6E;
+      --rule: #3F2B22;
+      --accent: #E0836B;
+      --accent-soft: #EDAE96;
+      --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+  }
+
   body {
     font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-    display: flex; align-items: center; justify-content: center; text-align: center;
-    padding: 24px;
+    -webkit-font-smoothing: antialiased;
   }
-  h1 { font-family: 'IBM Plex Serif', Georgia, serif; font-weight: 400; font-size: 40px; margin: 0 0 12px; }
-  p { color: #C9B7AC; font-size: 16px; margin: 0; }
-  a { color: #E0836B; }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Hero — always dark/warm, regardless of viewer theme, echoing the app's own splash screen */
+  .hero {
+    /* Same two-glow warm light as the app's own Home screen (LightBackground, role: neutral) */
+    background:
+      radial-gradient(ellipse 90% 90% at 8% 0%, rgba(125, 66, 48, 0.9) 0%, rgba(125, 66, 48, 0) 62%),
+      radial-gradient(ellipse 85% 85% at 100% 32%, rgba(110, 44, 51, 0.85) 0%, rgba(110, 44, 51, 0) 62%),
+      linear-gradient(to bottom, #3D2A20, #2B1D17);
+    color: var(--dark-ink);
+    padding: 96px 0 88px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin: 0 0 18px;
+  }
+
+  .hero h1 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(36px, 6vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+    text-wrap: balance;
+    max-width: 14ch;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+
+  .hero .lead {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: clamp(19px, 2.6vw, 23px);
+    line-height: 1.5;
+    color: rgba(242, 233, 226, 0.88);
+    max-width: 34ch;
+    margin: 0 0 28px;
+  }
+
+  .hero .body {
+    display: grid;
+    gap: 12px;
+    max-width: 42ch;
+    margin: 0 0 40px;
+  }
+
+  .hero .body p {
+    margin: 0;
+    font-size: 16.5px;
+    line-height: 1.6;
+    color: rgba(242, 233, 226, 0.6);
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .btn-store {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent-soft);
+    color: var(--dark-ground);
+    font-weight: 600;
+    font-size: 15.5px;
+    white-space: nowrap;
+    text-decoration: none;
+    padding: 14px 22px;
+    border-radius: 999px;
+    transition: opacity 0.15s ease;
+  }
+
+  @media (max-width: 400px) {
+    .btn-store { font-size: 14px; padding: 13px 18px; }
+  }
+
+  .btn-store:hover { opacity: 0.85; }
+
+  .btn-store svg { flex: none; }
+
+  .free-note {
+    font-size: 13.5px;
+    color: rgba(242, 233, 226, 0.5);
+  }
+
+  /* Body sections — follow the viewer's own theme */
+  section.page { padding: 64px 0; }
+  section.page + section.page { border-top: 1px solid var(--rule); }
+
+  section.page h2 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 26px;
+    margin: 0 0 32px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .steps {
+    display: grid;
+    gap: 20px;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .step .n {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  .step p {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+
+  .step strong { color: var(--ink); font-weight: 600; }
+
+  .prompt-card {
+    background: var(--ground-raised);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 36px 30px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+  }
+
+  .prompt-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 20px;
+  }
+
+  .prompt-quote {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: clamp(19px, 3vw, 22px);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 38ch;
+    margin: 0 auto 24px;
+  }
+
+  .prompt-options {
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  .prompt-options .opt {
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+
+  .prompt-options .quiet {
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 2px;
+  }
+
+  section.product-section { padding: 32px 0; }
+
+  .wrap-wide {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .product-row {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .product-shot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 205px;
+  }
+
+  .product-shot img {
+    width: 100%;
+    height: auto;
+    border-radius: 26px;
+    box-shadow: 0 20px 60px rgba(43, 29, 23, 0.22), 0 4px 14px rgba(43, 29, 23, 0.12);
+  }
+
+  .product-shot .caption {
+    margin: 16px 0 0;
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
+  .territories {
+    display: grid;
+    gap: 14px;
+  }
+
+  .territory {
+    background: var(--ground-raised);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: var(--card-shadow);
+    display: grid;
+    gap: 4px;
+  }
+
+  .territory .name {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    font-size: 18px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .territory .tag {
+    font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 1px 8px;
+    margin-top: 0;
+  }
+
+  .territory .tagline {
+    font-size: 14.5px;
+    color: var(--ink-faint);
+  }
+
+  .pass-note {
+    margin: 24px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-faint);
+    max-width: 56ch;
+  }
+
+  .privacy-grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .privacy-item {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 14px;
+  }
+
+  .privacy-item svg { flex: none; margin-top: 2px; color: var(--accent); }
+
+  .privacy-item p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 54ch;
+  }
+
+  footer {
+    padding: 40px 0 56px;
+  }
+
+  footer .links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0 0 14px;
+  }
+
+  footer a {
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+  }
+
+  footer .fine {
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
 </style>
 </head>
 <body>
-  <div>
-    <h1>Meld</h1>
-    <p>A place for the things between you two. <a href="privacy/">Privacy policy</a></p>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Meld</p>
+    <h1>Made for sapphic couples.</h1>
+    <p class="lead">Some things are easier to open together.</p>
+    <div class="body">
+      <p>Things you want. Things you're curious about. Things that just haven't come up yet.</p>
+      <p>Answer privately on one phone, pass it over, and see what opens between you.</p>
+    </div>
+    <div class="cta-row">
+      <a class="btn-store" href="https://apps.apple.com/app/id6803772194">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8.87-.07 2.24-.79 3.65-.79.99 0 3.28.4 4.7 2.94-3.65 2.13-2.99 6.94.57 8.4-.55 1.42-1.3 2.83-2.94 1.62h-.06zM12.03 7.25c-.15-2.23 1.66-4.09 3.74-4.25.29 2.31-2.07 4.03-3.74 4.25z" fill="currentColor"/></svg>
+        Download on the App Store
+      </a>
+      <span class="free-note">Free to start · Meld Pass unlocks the rest</span>
+    </div>
   </div>
+</div>
+
+<section class="page">
+  <div class="wrap">
+    <h2>One phone. Two turns.</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="n">1</span>
+        <p><strong>One of you answers first</strong> — alone with the phone, privately, no one watching.</p>
+      </div>
+      <div class="step">
+        <span class="n">2</span>
+        <p><strong>Hand it over.</strong> The other person answers the same prompts, just as privately.</p>
+      </div>
+      <div class="step">
+        <span class="n">3</span>
+        <p><strong>The Reveal shows only where there was openness on both sides.</strong> Everything else stays private.</p>
+      </div>
+      <div class="step">
+        <span class="n">4</span>
+        <p>What opens between you can stay in <strong>What's ours now</strong> — a private collection you can return to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="wrap">
+    <div class="prompt-card">
+      <p class="prompt-eyebrow">Want to put this on the table?</p>
+      <p class="prompt-quote">"Being told the thing you like about me that nobody else would notice."</p>
+      <p class="prompt-options"><span class="opt">Yes</span> · <span class="opt">Maybe</span> · <span class="quiet">Leave it</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="page product-section">
+  <div class="wrap-wide">
+    <div class="product-row">
+      <div class="product-shot">
+        <img src="assets/home.jpg" width="416" height="900" alt="Meld's Home screen — Between Us, Wanting, and Try Together.">
+        <p class="caption">Between Us, Wanting, Try Together — three territories to open.</p>
+      </div>
+      <div class="product-shot">
+        <img src="assets/how-this-works.jpg" width="416" height="900" alt="How this works — Meld's instructions before a session begins.">
+        <p class="caption">Before you start — no surprises about how it works.</p>
+      </div>
+      <div class="product-shot">
+        <img src="assets/answer-deck.jpg" width="416" height="900" alt="A prompt from The Usual, with Yes, Maybe, and Leave it as the only responses.">
+        <p class="caption">One prompt at a time — Yes, Maybe, or Leave it.</p>
+      </div>
+      <div class="product-shot">
+        <img src="assets/reveal-whats-ours-now.jpg" width="416" height="900" alt="What's ours now — the private collection of things that became visible between you, inside Meld.">
+        <p class="caption">What's ours now — the things that became visible between you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="wrap">
+    <h2>Three territories to explore.</h2>
+    <div class="territories">
+      <div class="territory">
+        <div class="name">Between Us <span class="tag">Free</span></div>
+        <div class="tagline">Affection, care, and the small things that start something.</div>
+      </div>
+      <div class="territory">
+        <div class="name">Wanting</div>
+        <div class="tagline">How you both want to be wanted.</div>
+      </div>
+      <div class="territory">
+        <div class="name">Try Together</div>
+        <div class="tagline">New things, low stakes.</div>
+      </div>
+    </div>
+    <p class="pass-note">Between Us is free to play in full. Wanting and Try Together unlock with Meld Pass — a one-time purchase, not a subscription.</p>
+  </div>
+</section>
+
+<section class="page">
+  <div class="wrap">
+    <h2>What's between you stays on this phone.</h2>
+    <div class="privacy-grid">
+      <div class="privacy-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 6v6c0 5.2 3.4 9.7 8 11 4.6-1.3 8-5.8 8-11V6l-8-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <p>No account, no login, no cloud sync. Names, answers, and reveals stay only on your device.</p>
+      </div>
+      <div class="privacy-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Meld isn't a compatibility test, a relationship score, or a quiz. It doesn't rate your relationship.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="privacy/">Privacy Policy</a>
+      <a href="terms/">Terms of Use</a>
+      <a href="support/">Support</a>
+    </div>
+    <p class="fine">Meld is developed by Luiza Garofalo.</p>
+  </div>
+</footer>
+
 </body>
 </html>
